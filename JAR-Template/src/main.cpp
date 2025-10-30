@@ -1,6 +1,7 @@
 #include "vex.h"
 
 using namespace vex;
+#include <iostream>
 competition Competition;
 
 /*---------------------------------------------------------------------------*/
@@ -44,10 +45,10 @@ ZERO_TRACKER_NO_ODOM,
 //You will input whatever motor names you chose when you configured your robot using the sidebar configurer, they don't have to be "Motor1" and "Motor2".
 
 //Left Motors:
-motor_group(),
+motor_group(LeftFront,LeftMiddle,LeftBack),
 
 //Right Motors:
-motor_group(),
+motor_group(RightFront,RightMiddle,RightBack),
 
 //Specify the PORT NUMBER of your inertial sensor, in PORT format (i.e. "PORT1", not simply "1"):
 PORT1,
@@ -122,7 +123,7 @@ void pre_auton() {
 
   while(!auto_started){
     Brain.Screen.clearScreen();
-    Brain.Screen.printAt(5, 20, "JAR Template v1.2.0");
+    Brain.Screen.printAt(5, 20, "Circuit Breakers");
     Brain.Screen.printAt(5, 40, "Battery Percentage:");
     Brain.Screen.printAt(5, 60, "%d", Brain.Battery.capacity());
     Brain.Screen.printAt(5, 80, "Chassis Heading Reading:");
@@ -160,7 +161,7 @@ void pre_auton() {
     } else if (current_auton_selection == 8){
       current_auton_selection = 0;
     }
-    task::sleep(10);
+    sleep(10);
   }
 }
 
@@ -214,10 +215,11 @@ void autonomous(void) {
 void usercontrol(void) {
   // User control code here, inside the loop
   while (1) {
+
     // This is the main execution loop for the user control program.
     // Each time through the loop your program should update motor + servo
     // values based on feedback from the joysticks.
-
+    
     // ........................................................................
     // Insert user code here. This is where you use the joystick values to
     // update your motors, etc.
@@ -225,6 +227,9 @@ void usercontrol(void) {
 
     //Replace this line with chassis.control_tank(); for tank drive 
     //or chassis.control_holonomic(); for holo drive.
+    
+ 
+
     chassis.control_arcade();
 
     wait(20, msec); // Sleep the task for a short amount of time to
